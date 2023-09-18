@@ -78,22 +78,22 @@ def main():
     assert data.isnull().sum().sum() == 0
     assert data.isna().sum().sum() == 0
 
-
     
 
     # create a model to train on the data
     model = tf.keras.Sequential([
-        tf.keras.layers.Dense(10, activation='relu'),
-        tf.keras.layers.Dense(10, activation='relu'),
-        tf.keras.layers.Dense(10, activation='relu'),
-        tf.keras.layers.Dense(1)
+        tf.keras.layers.Dense(16, activation='relu'),
+        tf.keras.layers.Dense(16, activation='relu'),
+        tf.keras.layers.Dense(16, activation='relu'),
+        tf.keras.layers.Dense(8, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
     ])
 
     model.compile(optimizer=tf.keras.optimizers.Adam(0.001),
-                loss='binary_crossentropy',
+                loss='mean_squared_error',
                 metrics=['accuracy'])
     
-    model.fit(data, target, epochs=128, batch_size=32)
+    model.fit(data, target, epochs=256, batch_size=32)
 
     tf.keras.utils.plot_model(model, to_file='model.png', show_shapes=True, show_layer_names=True, rankdir="LR", expand_nested=True, dpi=96)
 
@@ -111,11 +111,6 @@ def main():
 
     print(predictions)
 
-    
-
-    
-
-        
         
     
 
